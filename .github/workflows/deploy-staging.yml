@@ -9,13 +9,12 @@ on:
 jobs:
   build:
     env:
-      SSH_KEY: ~/.ssh/id_rsa
       WORK_DIR: cd /root/sites/wishket.com/source
-      REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=$GITHUB_REF")
+      REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${{ github.ref }}")
       KILL_GUNICORN: pkill -e gunicorn
 
       GIT_FETCH: git fetch origin
-      GIT_CHECKOUT: git checkout $GITHUB_REF
+      GIT_CHECKOUT: git checkout ${{ github.ref }}
       GIT_PULL: git pull
 
       START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
@@ -25,11 +24,6 @@ jobs:
     name: sgm-staging
     runs-on: ubuntu-16.04
     steps:
-    - name: Get sufficient access privileges for SSH key
-      uses: webfactory/ssh-agent@v0.2.0
-      with:
-        ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
-
     - name: Start staging update
       uses: fifsky/ssh-action@master
       with:
@@ -37,6 +31,7 @@ jobs:
           ${{ env.WORK_DIR }}
           ${{ env.KILL_GUNICORN }}
 
+          ${{ env.GIT_FETCH }}
           ${{ env.GIT_CHECKOUT }}
           ${{ env.GIT_PULL }}
 
