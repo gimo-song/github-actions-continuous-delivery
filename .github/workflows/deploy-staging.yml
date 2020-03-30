@@ -34,9 +34,8 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          whoami
-          pwd
-
+          echo ${{ github.ref }}
+          ${{ env.WORK_DIR }}
           $WORK_DIR
           $REMOVE_DOCKER
           $KILL_GUNICORN
