@@ -30,7 +30,7 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
         run: |
-          ssh oot@ssh.sgm.wishdev.net
+          ssh root@ssh.sgm.wishdev.net
 
     - name: Start update staging
       run: |
