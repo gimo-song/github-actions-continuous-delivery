@@ -31,6 +31,9 @@ jobs:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
         run: |
           ssh root@ssh.sgm.wishdev.net
+          whoami
+          pwd
+
 
     - name: Start update staging
       run: |
