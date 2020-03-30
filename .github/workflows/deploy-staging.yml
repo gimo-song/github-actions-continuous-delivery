@@ -10,11 +10,11 @@ jobs:
   build:
     env:
       WORK_DIR: cd /root/sites/wishket.com/source
-      REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${{ github.head_ref }}")
+      REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
       KILL_GUNICORN: pkill -e gunicorn
 
       GIT_FETCH: git fetch origin
-      GIT_CHECKOUT: git checkout ${{ github.head_ref }}
+      GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
       GIT_PULL: git pull
 
       START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
@@ -28,8 +28,9 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          echo ${{ github.head_ref }}
-          echo $GITHUB_HEAD_REF
+          GITHUB_REF={{ github.ref }}
+
+          echo ${GITHUB_REF##*/}
 
           ${{ env.WORK_DIR }}
           ${{ env.KILL_GUNICORN }}
