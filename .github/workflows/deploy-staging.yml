@@ -28,7 +28,7 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          GITHUB_REF={{ github.ref }}
+          GITHUB_REF=${{ github.ref }}
 
           echo ${GITHUB_REF##*/}
 
