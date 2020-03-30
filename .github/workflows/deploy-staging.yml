@@ -35,6 +35,8 @@ jobs:
       with:
         command: |
           echo ${{ github.ref }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
           ${{ env.WORK_DIR }}
           $WORK_DIR
           $REMOVE_DOCKER
