@@ -31,7 +31,9 @@ jobs:
       with:
         command: |
           echo ${{ github.event.types }}
+          echo $GITHUB_SHA
           echo ${{ github.event.pull_request }}
+          echo ${{ github.evnet.push }}
           ehco ${{ github.event }}
           echo ${{ github.ref }}
           echo ${{ github.head_ref }}
