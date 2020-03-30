@@ -34,20 +34,15 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          echo ${{ github.ref }}
-          echo ${{ github.head_ref }}
-          echo ${{ github.base_ref }}
           ${{ env.WORK_DIR }}
-          $WORK_DIR
-          $REMOVE_DOCKER
-          $KILL_GUNICORN
+          ${{ env.KILL_GUNICORN }}
 
-          $GIT_CHECKOUT
-          $GIT_PULL
+          ${{ env.GIT_CHECKOUT }}
+          ${{ env.GIT_PULL }}
 
-          $START_GUNICORN
-          $COPY_STATIC_FOLDER
-          $DOCKER_SET
+          ${{ env.START_GUNICORN }}
+          ${{ env.COPY_STATIC_FOLDER }}
+          ${{ env.DOCKER_SET }}
 
         host: ssh.sgm.wishdev.net
         user: root
