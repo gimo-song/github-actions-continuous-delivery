@@ -25,18 +25,19 @@ jobs:
     name: sgm-staging
     runs-on: ubuntu-16.04
     steps:
-    - name: get sufficient access privileges for SSH key
+    - name: Get sufficient access privileges for SSH key
       uses: webfactory/ssh-agent@v0.2.0
       with:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
 
-    - name: SGM staging update script with ssh connection
-      uses: appleboy/ssh-action@master
+    - name: SGM Connect staging server
+      - with:
+          - run: |
+              - ssh root@ssh.sgm.wishdev.net
+
+    - name: Start update staging
       with:
-        host: ssh.sgm.wishdev.net
-        username: root
-        key: ~/.ssh/id_rsa
-        script: |
+        run: |
           $WORK_DIR
           $REMOVE_DOCKER
           $KILL_GUNICORN
