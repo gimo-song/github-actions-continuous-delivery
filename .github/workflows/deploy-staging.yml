@@ -28,6 +28,9 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
+          echo ${{ env.GIT_CHECKOUT }}
+          echo ${{ github.ref }}
+          
           ${{ env.WORK_DIR }}
           ${{ env.KILL_GUNICORN }}
 
