@@ -29,10 +29,8 @@ jobs:
       uses: webfactory/ssh-agent@v0.2.0
       with:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
-
-    - name: SGM Connect staging server
-      run: |
-        ssh -T root@ssh.sgm.wishdev.net
+        run: |
+          ssh oot@ssh.sgm.wishdev.net
 
     - name: Start update staging
       run: |
