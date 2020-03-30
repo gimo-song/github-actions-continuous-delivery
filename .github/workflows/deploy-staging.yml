@@ -32,7 +32,7 @@ jobs:
 
     - name: SGM Connect staging server
       run: |
-        ssh root@ssh.sgm.wishdev.net
+        ssh -T root@ssh.sgm.wishdev.net
 
     - name: Start update staging
       run: |
