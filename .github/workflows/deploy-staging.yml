@@ -35,7 +35,7 @@ jobs:
       with:
         host: ssh.sgm.wishdev.net
         username: root
-        key: ${{ secrets.GIMO_PRIVATE_KEY }}
+        key: ~/.ssh/id_rsa
         script: |
           $WORK_DIR
           $REMOVE_DOCKER
