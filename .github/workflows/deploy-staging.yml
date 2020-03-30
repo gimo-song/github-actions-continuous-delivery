@@ -13,7 +13,7 @@ jobs:
       REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
       KILL_GUNICORN: pkill -e gunicorn
 
-      SET_REF: if[ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
+      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
 
       GIT_FETCH: git fetch origin
       GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
