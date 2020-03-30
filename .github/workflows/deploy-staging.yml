@@ -29,8 +29,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.2.0
       with:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
-        run: |
-          ssh root@ssh.sgm.wishdev.net
+
+    - name: Start staging update
+      uses:
+      with:
+        command: |
           whoami
           pwd
 
@@ -44,3 +47,7 @@ jobs:
           $START_GUNICORN
           $COPY_STATIC_FOLDER
           $DOCKER_SET
+
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GIMO_PRIVATEKEY }}
