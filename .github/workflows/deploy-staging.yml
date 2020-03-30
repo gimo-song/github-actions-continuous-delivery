@@ -31,9 +31,9 @@ jobs:
         ssh-private-key: ${{ secrets.GIMO_PRIVATEKEY }}
 
     - name: SGM Connect staging server
-      - with:
-          - run: |
-              - ssh root@ssh.sgm.wishdev.net
+      with:
+        run: |
+          ssh root@ssh.sgm.wishdev.net
 
     - name: Start update staging
       with:
