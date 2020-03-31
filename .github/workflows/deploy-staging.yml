@@ -31,9 +31,7 @@ jobs:
         if: github.ref == 'refs/heads/staging*'
         uses: fifsky/ssh-action@master
         with:
-          command: |
-            echo ${{ github.ref }}
-
+          command: echo ${{ github.ref }}
 #            ${{ env.SET_REF }}
 #
 #            ${{ env.WORK_DIR }}
@@ -46,7 +44,6 @@ jobs:
 #            ${{ env.START_GUNICORN }}
 #            ${{ env.COPY_STATIC_FOLDER }}
 #            ${{ env.DOCKER_SET }}
-
         host: ssh.sgm.wishdev.net
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
