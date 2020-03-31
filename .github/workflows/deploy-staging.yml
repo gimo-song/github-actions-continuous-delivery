@@ -26,11 +26,9 @@ env:
 jobs:
   build:
     - name: staging-update
-      if: github.ref == 'refs/heads/s'
       runs-on: ubuntu-16.04
       steps:
         name: Start staging update
-        if: github.ref == 'refs/heads/s*'
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -49,11 +47,11 @@ jobs:
             ${{ env.COPY_STATIC_FOLDER }}
             ${{ env.DOCKER_SET }}
 
-          - if:
+          - if: github.ref == 'refs/heads/s'
               host: ssh.sgm.wishdev.net
               user: root
               key: ${{ secrets.GIMO_PRIVATEKEY }}
-          - if:
+          - if: github.ref == 'refs/heads/s*'
               host: ssh.sgm.wishdddev.net
               user: root
               key: ${{ secrets.GIMO_PRIVATEKEY }}
