@@ -23,24 +23,10 @@ env:
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
   DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set
 
-  COMMANDS: |
-    ${{ env.SET_REF }}
-
-    ${{ env.WORK_DIR }}
-    ${{ env.KILL_GUNICORN }}
-
-    ${{ env.GIT_FETCH }}
-    ${{ env.GIT_CHECKOUT }}
-    ${{ env.GIT_PULL }}
-
-    ${{ env.START_GUNICORN }}
-    ${{ env.COPY_STATIC_FOLDER }}
-    ${{ env.DOCKER_SET }}
-
 jobs:
   build:
     name: staging-update
-    if: github.ref == 'refs/heads/s*'
+    if: github.ref == 'refs/heads/s'
     runs-on: ubuntu-16.04
     steps:
     - name: Start staging update
@@ -48,8 +34,27 @@ jobs:
       with:
         command: |
           echo ${{ github.ref }}
-          ${{ env.COMMANDS }}
 
-        host: ssh.sgm.wishdev.net
-        user: root
-        key: ${{ secrets.GIMO_PRIVATEKEY }}
+          ${{ env.SET_REF }}
+
+          ${{ env.WORK_DIR }}
+          ${{ env.KILL_GUNICORN }}
+
+          ${{ env.GIT_FETCH }}
+          ${{ env.GIT_CHECKOUT }}
+          ${{ env.GIT_PULL }}
+
+          ${{ env.START_GUNICORN }}
+          ${{ env.COPY_STATIC_FOLDER }}
+          ${{ env.DOCKER_SET }}
+
+        - name: SGM STAGING CONNECTION
+          if: github.ref == 'refs/heads/s
+          host: ssh.sgm.wishdev.net
+          user: root
+          key: ${{ secrets.GIMO_PRIVATEKEY }}
+        - name: OTHER STAGING CONNECTION
+          if: github.ref == 'refs/heads/s*
+          host: ssh.sgm.wisshdev.net
+          user:root
+          key: ${{ secrets.other }}
