@@ -25,9 +25,11 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
-    steps:
-      - name: Start staging update
+    - name: staging-update
+      if: github.ref == 'refs/heads/s'
+      runs-on: ubuntu-16.04
+      steps:
+        name: Start staging update
         if: github.ref == 'refs/heads/s*'
         uses: fifsky/ssh-action@master
         with:
@@ -47,30 +49,13 @@ jobs:
             ${{ env.COPY_STATIC_FOLDER }}
             ${{ env.DOCKER_SET }}
 
-          host: ssh.sgm.wishdev.net
-          user: root
-          key: ${{ secrets.GIMO_PRIVATEKEY }}
+          - if:
+              host: ssh.sgm.wishdev.net
+              user: root
+              key: ${{ secrets.GIMO_PRIVATEKEY }}
+          - if:
+              host: ssh.sgm.wishdddev.net
+              user: root
+              key: ${{ secrets.GIMO_PRIVATEKEY }}
 
-      - name: Start staging update2
-        if: github.ref == 'refs/heads/s'
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            echo ${{ github.ref }}
 
-            ${{ env.SET_REF }}
-
-            ${{ env.WORK_DIR }}
-            ${{ env.KILL_GUNICORN }}
-
-            ${{ env.GIT_FETCH }}
-            ${{ env.GIT_CHECKOUT }}
-            ${{ env.GIT_PULL }}
-
-            ${{ env.START_GUNICORN }}
-            ${{ env.COPY_STATIC_FOLDER }}
-            ${{ env.DOCKER_SET }}
-
-          host: ssh.sgm.wishdev.net
-          user: root
-          key: ${{ secrets.GIMO_PRIVATEKEY }}
