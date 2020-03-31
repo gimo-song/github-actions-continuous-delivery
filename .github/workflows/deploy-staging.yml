@@ -14,7 +14,8 @@ jobs:
       REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
       KILL_GUNICORN: pkill -e gunicorn
 
-      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
+#      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
+      SET_REF: GITHUB_REF=${{ github.ref }};
 
       GIT_FETCH: git fetch origin
       GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
@@ -31,9 +32,7 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          echo ${{ github.event_name }}
           echo ${{ github.ref }}
-          echo ${{ github.head_ref }}
 
           ${{ env.SET_REF }}
 
@@ -48,6 +47,7 @@ jobs:
           ${{ env.COPY_STATIC_FOLDER }}
           ${{ env.DOCKER_SET }}
 
+        if: ${{ github.ref }} == 'refs/heads/sgg'
         host: ssh.sgm.wishdev.net
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
