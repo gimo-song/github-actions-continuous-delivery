@@ -6,30 +6,29 @@ on:
 #  pull_request:
 #    branches:
 #      - 'master'
-
-jobs:
-    env:
-      WORK_DIR: cd /root/sites/wishket.com/source
-      REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
-      KILL_GUNICORN: pkill -e gunicorn
+env:
+  WORK_DIR: cd /root/sites/wishket.com/source
+  REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
+  KILL_GUNICORN: pkill -e gunicorn
 
 #      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
-      SET_REF: GITHUB_REF=${{ github.ref }};
+  SET_REF: GITHUB_REF=${{ github.ref }};
 
-      GIT_FETCH: git fetch origin
-      GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
-      GIT_PULL: git pull
+  GIT_FETCH: git fetch origin
+  GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
+  GIT_PULL: git pull
 
-      START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
-      COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
-      DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set
+  START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
+  COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
+  DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set
 
-  SGM_STAGING
+jobs:
     build:
       name: sgm-staging
       runs-on: ubuntu-16.04
       steps:
       - name: Start staging update
+        if: github.ref == 'refs/heads/staging*'
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -51,3 +50,33 @@ jobs:
           host: ssh.sgm.wishdev.net
           user: root
           key: ${{ secrets.GIMO_PRIVATEKEY }}
+
+#jobs:
+#  SGM_STAGING:
+#    if:
+#    build:
+#      name: sgm-staging
+#      runs-on: ubuntu-16.04
+#      steps:
+#      - name: Start staging update
+#        uses: fifsky/ssh-action@master
+#        with:
+#          command: |
+#            echo ${{ github.ref }}
+#
+##            ${{ env.SET_REF }}
+##
+##            ${{ env.WORK_DIR }}
+##            ${{ env.KILL_GUNICORN }}
+##
+##            ${{ env.GIT_FETCH }}
+##            ${{ env.GIT_CHECKOUT }}
+##            ${{ env.GIT_PULL }}
+##
+##            ${{ env.START_GUNICORN }}
+##            ${{ env.COPY_STATIC_FOLDER }}
+##            ${{ env.DOCKER_SET }}
+#
+#          host: ssh.sgm.wishdev.net
+#          user: root
+#          key: ${{ secrets.GIMO_PRIVATEKEY }}
