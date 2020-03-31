@@ -27,7 +27,7 @@ env:
 jobs:
   build:
     name: staging-update
-    if: ${{ github.ref }} == 'refs/heads/s'
+    if: github.ref == 'refs/heads/s'
     runs-on: ubuntu-16.04
     steps:
     - name: Start staging update
