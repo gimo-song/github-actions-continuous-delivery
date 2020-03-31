@@ -53,7 +53,7 @@ jobs:
         key: ${{ secrets.GIMO_PRIVATEKEY }}
 
     - name: Start Other Staging Update
-      if: github.ref == 'refs/heads/st*'
+      if: github.ref == 'refs/heads/staging*'
       uses: fifsky/ssh-action@master
       with:
         command: |
