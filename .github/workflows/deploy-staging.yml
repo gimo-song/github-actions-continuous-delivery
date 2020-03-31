@@ -24,7 +24,7 @@ jobs:
       COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
       DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set
 
-  id: SGM-staging-build
+  SGM_STAGING
     build:
       name: sgm-staging
       runs-on: ubuntu-16.04
