@@ -25,11 +25,10 @@ env:
 
 jobs:
   build:
-    - name: staging-update
-    if: github.ref == 'refs/heads/s'
     runs-on: ubuntu-16.04
     steps:
-      name: Start staging update
+      - name: Start staging update
+      if: github.ref == 'refs/heads/s*'
       uses: fifsky/ssh-action@master
       with:
         command: |
@@ -52,29 +51,26 @@ jobs:
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
 
-    - name: staging-update2
-      if: github.ref == 'refs/heads/st*'
-      runs-on: ubuntu-16.04
-      steps:
-          name: Start staging update
-          uses: fifsky/ssh-action@master
-          with:
-            command: |
-              echo ${{ github.ref }}
+      - name: Start staging update2
+      if: github.ref == 'refs/heads/s'
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          echo ${{ github.ref }}
 
-#              ${{ env.SET_REF }}
-#
-#              ${{ env.WORK_DIR }}
-#              ${{ env.KILL_GUNICORN }}
-#
-#              ${{ env.GIT_FETCH }}
-#              ${{ env.GIT_CHECKOUT }}
-#              ${{ env.GIT_PULL }}
-#
-#              ${{ env.START_GUNICORN }}
-#              ${{ env.COPY_STATIC_FOLDER }}
-#              ${{ env.DOCKER_SET }}
+          ${{ env.SET_REF }}
 
-            host: ssh.sgm.wishdev.net
-            user: root
-            key: ${{ secrets.GIMO_PRIVATEKEY }}
+          ${{ env.WORK_DIR }}
+          ${{ env.KILL_GUNICORN }}
+
+          ${{ env.GIT_FETCH }}
+          ${{ env.GIT_CHECKOUT }}
+          ${{ env.GIT_PULL }}
+
+          ${{ env.START_GUNICORN }}
+          ${{ env.COPY_STATIC_FOLDER }}
+          ${{ env.DOCKER_SET }}
+
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GIMO_PRIVATEKEY }}
