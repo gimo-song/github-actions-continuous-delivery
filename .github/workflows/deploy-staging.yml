@@ -26,6 +26,7 @@ env:
 jobs:
   build:
     - name: staging-update
+      if: github.ref == 'refs/heads/s'
       runs-on: ubuntu-16.04
       steps:
         name: Start staging update
@@ -47,13 +48,20 @@ jobs:
             ${{ env.COPY_STATIC_FOLDER }}
             ${{ env.DOCKER_SET }}
 
-          - if: github.ref == 'refs/heads/s'
-              host: ssh.sgm.wishdev.net
-              user: root
-              key: ${{ secrets.GIMO_PRIVATEKEY }}
-          - if: github.ref == 'refs/heads/s*'
-              host: ssh.sgm.wishdddev.net
-              user: root
-              key: ${{ secrets.GIMO_PRIVATEKEY }}
+          host: ssh.sgm.wishdev.net
+          user: root
+          key: ${{ secrets.GIMO_PRIVATEKEY }}
 
+    - name: staging-update2
+        if: github.ref == 'refs/heads/s*'
+        runs-on: ubuntu-16.04
+        steps:
+          name: Start staging update
+          uses: fifsky/ssh-action@master
+          with:
+            command: |
+              echo ${{ github.ref }}
 
+            host: ssh.sgm.wishdev.net
+            user: root
+            key: ${{ secrets.GIMO_PRIVATEKEY }}
