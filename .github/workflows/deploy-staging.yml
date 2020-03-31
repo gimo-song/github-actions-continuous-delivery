@@ -47,7 +47,7 @@ jobs:
           ${{ env.COPY_STATIC_FOLDER }}
           ${{ env.DOCKER_SET }}
 
-        if: ${{ github.ref }} == 'refs/heads/staging*'
+        if: ${{ github.ref }} == 'refs/heads/s'
         host: ssh.sgm.wishdev.net
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
