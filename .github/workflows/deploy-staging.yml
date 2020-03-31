@@ -28,27 +28,26 @@ jobs:
       runs-on: ubuntu-16.04
       steps:
       - name: Start staging update
-        if: github.ref == 'refs/heads/staging*'
-          uses: fifsky/ssh-action@master
-          with:
-            command: |
-              echo ${{ github.ref }}
-              ${{ env.SET_REF }}
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            echo ${{ github.ref }}
+#            ${{ env.SET_REF }}
+#
+#            ${{ env.WORK_DIR }}
+#            ${{ env.KILL_GUNICORN }}
+#
+#            ${{ env.GIT_FETCH }}
+#            ${{ env.GIT_CHECKOUT }}
+#            ${{ env.GIT_PULL }}
+#
+#            ${{ env.START_GUNICORN }}
+#            ${{ env.COPY_STATIC_FOLDER }}
+#            ${{ env.DOCKER_SET }}
 
-              ${{ env.WORK_DIR }}
-              ${{ env.KILL_GUNICORN }}
-  
-              ${{ env.GIT_FETCH }}
-              ${{ env.GIT_CHECKOUT }}
-              ${{ env.GIT_PULL }}
-
-              ${{ env.START_GUNICORN }}
-              ${{ env.COPY_STATIC_FOLDER }}
-              ${{ env.DOCKER_SET }}
-
-          host: ssh.sgm.wishdev.net
-          user: root
-          key: ${{ secrets.GIMO_PRIVATEKEY }}
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GIMO_PRIVATEKEY }}
 
 #jobs:
 #  SGM_STAGING:
