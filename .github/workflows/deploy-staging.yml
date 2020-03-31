@@ -47,9 +47,9 @@ jobs:
 #            ${{ env.COPY_STATIC_FOLDER }}
 #            ${{ env.DOCKER_SET }}
 
-          host: ssh.sgm.wishdev.net
-          user: root
-          key: ${{ secrets.GIMO_PRIVATEKEY }}
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GIMO_PRIVATEKEY }}
 
 #jobs:
 #  SGM_STAGING:
