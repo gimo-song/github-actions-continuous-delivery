@@ -7,14 +7,6 @@ on:
 #    branches:
 #      - 'master'
 
-env:
-  REF: ${{ github.ref }}
-
-if: ${{ github.event_name }} == 'pull_request'
-  env:
-    REF: ${{ github.head_ref }}
-
-
 jobs:
   build:
     env:
