@@ -9,7 +9,6 @@ on:
 env:
   WORK_DIR: cd /root/sites/wishket.com/source
   REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
-  PATH_SET: export PATH=${{ secrets.PYPATH }}
   KILL_GUNICORN: pkill -e gunicorn
 
 #      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
@@ -32,12 +31,10 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          echo ${{ github.ref }}
-          echo ${{ env.PATH_SET }}
           ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
-          ${{ env.PATH_SET }}
+          export PATH=${{ secrets.PYPATH }}
           ${{ env.REMOVE_DOCKER }}
           ${{ env.KILL_GUNICORN }}
 
