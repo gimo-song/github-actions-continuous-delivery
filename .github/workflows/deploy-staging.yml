@@ -9,7 +9,6 @@ on:
 env:
   WORK_DIR: cd /root/sites/wishket.com/source
   REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
-  DOCKER_PS: docker ps
   PATH_SET: export PATH=${{ secrets.PYPATH }}
   KILL_GUNICORN: pkill -e gunicorn
 
@@ -34,12 +33,12 @@ jobs:
       with:
         command: |
           echo ${{ github.ref }}
-
+          echo ${{ env.PATH_SET }}
           ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
           ${{ env.PATH_SET }}
-          ${{ env.DOCKER_PS }}
+          ${{ env.REMOVE_DOCKER }}
           ${{ env.KILL_GUNICORN }}
 
           ${{ env.GIT_FETCH }}
