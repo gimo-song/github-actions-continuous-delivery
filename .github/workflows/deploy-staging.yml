@@ -44,8 +44,10 @@ jobs:
 
           ${{ env.START_GUNICORN }}
           ${{ env.COPY_STATIC_FOLDER }}
+
+          ${{ env.REMOVE_DOCKER }}
           ${{ env.DOCKER_SET }}
 
         host: ssh.sgm.wishdev.net
         user: root
-        key: ${{ secrets.GIMO_PRIVATEKEY }}
+        key: ${{ secrets.GITHUB_ACTION_KEY }}
