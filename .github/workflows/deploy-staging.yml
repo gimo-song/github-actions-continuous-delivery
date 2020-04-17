@@ -12,7 +12,7 @@ env:
   KILL_GUNICORN: pkill -e gunicorn
 
 #      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
-  SET_REF: GITHUB_REF=${{ github.ref }};
+  SET_REF: GITHUB_REF=${{ github.ref }}
 
   GIT_FETCH: git fetch origin
   GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
@@ -34,7 +34,7 @@ jobs:
           ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
-          export PATH=${{ secrets.PYPATH }}
+          export PATH=/root/.pyenv/plugins/pyenv-virtualenv/shims:/root/.pyenv/shims:/root/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
           ${{ env.REMOVE_DOCKER }}
           ${{ env.KILL_GUNICORN }}
 
