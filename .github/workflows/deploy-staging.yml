@@ -9,6 +9,7 @@ on:
 env:
   WORK_DIR: cd /root/sites/wishket.com/source
   REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
+  DOCKER_PS: docker ps
   KILL_GUNICORN: pkill -e gunicorn
 
 #      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
@@ -36,6 +37,8 @@ jobs:
           ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
+
+          ${{ env.DOCKER_PS }}
           ${{ env.KILL_GUNICORN }}
 
           ${{ env.GIT_FETCH }}
@@ -45,7 +48,6 @@ jobs:
           ${{ env.START_GUNICORN }}
           ${{ env.COPY_STATIC_FOLDER }}
 
-          ${{ env.REMOVE_DOCKER }}
           ${{ env.DOCKER_SET }}
 
         host: ssh.sgm.wishdev.net
