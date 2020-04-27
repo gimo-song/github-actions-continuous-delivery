@@ -19,7 +19,7 @@ env:
 
   START_GUNICORN: sudo ~/.pyenv/versions/service3/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
-  DOCKER_SET: sudo ~/.pyenv/versions/service3/bin/fab docker_set:t,t
+  DOCKER_SET: fab docker_set:t,t
 
 jobs:
   build:
