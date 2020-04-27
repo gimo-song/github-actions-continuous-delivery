@@ -31,7 +31,7 @@ jobs:
       with:
         command: |
           ${{ env.SET_REF }}
-
+          ${{ env.WORK_DIR }}
           python --version
           pip freeze
 
