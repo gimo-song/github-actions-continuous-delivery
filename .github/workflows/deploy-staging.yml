@@ -21,7 +21,7 @@ env:
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
   DOCKER_SET: /root/.pyenv/versions/service3/bin/fab docker_set:t,t
   DOCKER_SET2: /root/.pyenv/versions/service3/bin/fab docker_set
-
+  
 jobs:
   build:
     name: chs-staging
