@@ -24,7 +24,7 @@ env:
 jobs:
   build:
     name: chs-staging
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     steps:
     - name: Start staging update
       uses: fifsky/ssh-action@master
