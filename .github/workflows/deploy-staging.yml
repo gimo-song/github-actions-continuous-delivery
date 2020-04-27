@@ -30,17 +30,13 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          bash
           ${{ env.SET_REF }}
-          echo ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
           ${{ env.REMOVE_DOCKER }}
 
 
           ${{ env.KILL_GUNICORN }}
-
-          pwd
 
           ${{ env.GIT_FETCH }}
           ${{ env.GIT_CHECKOUT }}
