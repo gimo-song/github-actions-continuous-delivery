@@ -31,7 +31,7 @@ jobs:
       with:
         command: |
           ${{ env.SET_REF }}
-          echo ${ env.SET_REF }}
+          echo ${{ env.SET_REF }}
 
           ${{ env.WORK_DIR }}
           ${{ env.REMOVE_DOCKER }}
@@ -44,7 +44,7 @@ jobs:
           ${{ env.START_GUNICORN }}
           ${{ env.COPY_STATIC_FOLDER }}
 
-          echo ${ env.START_GUNICORN }}
+          echo ${{ env.START_GUNICORN }}
 
           ${{ env.DOCKER_SET }}
 
