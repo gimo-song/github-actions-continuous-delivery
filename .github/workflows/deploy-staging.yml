@@ -46,6 +46,7 @@ jobs:
           ${{ env.START_GUNICORN }}
           ${{ env.COPY_STATIC_FOLDER }}
 
+          python --version
           echo ${{ env.START_GUNICORN }}
 
           ${{ env.DOCKER_SET }}
