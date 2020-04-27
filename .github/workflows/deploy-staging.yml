@@ -31,20 +31,6 @@ jobs:
       with:
         command: |
           ${{ env.SET_REF }}
-#          ${{ env.PATH_SET }}
-#
-          ${{ env.WORK_DIR }}
-#          ${{ env.REMOVE_DOCKER }}
-#
-#
-#          ${{ env.KILL_GUNICORN }}
-#
-#          ${{ env.GIT_FETCH }}
-#          ${{ env.GIT_CHECKOUT }}
-#          ${{ env.GIT_PULL }}
-#
-#          ${{ env.START_GUNICORN }}
-#          ${{ env.COPY_STATIC_FOLDER }}
 
           python --version
           pip freeze
