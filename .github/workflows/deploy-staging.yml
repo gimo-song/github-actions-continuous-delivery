@@ -17,9 +17,9 @@ env:
   GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
   GIT_PULL: git pull
 
-  START_GUNICORN: sudo ~/.pyenv/versions/service3/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
+  START_GUNICORN: sudo ~/.pyenv/versions/service2/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
-  DOCKER_SET: sudo ~/.pyenv/versions/service/bin/fab docker_set:t,t
+  DOCKER_SET: sudo ~/.pyenv/versions/service2/bin/fab docker_set:t,t
 
 jobs:
   build:
