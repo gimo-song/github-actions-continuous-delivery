@@ -18,7 +18,7 @@ env:
   GIT_PULL: git pull
 
   START_GUNICORN: sudo ~/.pyenv/versions/service3/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
-  COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source3/wishket/static/ /root/sites/wishket.com/
+  COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
   DOCKER_SET: /root/.pyenv/versions/service3/bin/fab docker_set:t,t
 
 jobs:
@@ -32,12 +32,13 @@ jobs:
         command: |
           ${{ env.SET_REF }}
           echo ${{ env.SET_REF }}
-          pwd
-          pyenv versions
 
           ${{ env.WORK_DIR }}
           ${{ env.REMOVE_DOCKER }}
           ${{ env.KILL_GUNICORN }}
+
+          pwd
+          pyenv versions
 
           ${{ env.GIT_FETCH }}
           ${{ env.GIT_CHECKOUT }}
@@ -48,7 +49,7 @@ jobs:
 
           echo ${{ env.START_GUNICORN }}
 
-          ${{ env.DOCKER_SET }}
+#          ${{ env.DOCKER_SET }}
 
         host: ssh.chs.wishdev.net
         user: root
