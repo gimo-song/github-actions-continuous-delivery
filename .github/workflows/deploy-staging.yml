@@ -32,6 +32,8 @@ jobs:
         command: |
           ${{ env.SET_REF }}
           echo ${{ env.SET_REF }}
+          pwd
+          pyenv versions
 
           ${{ env.WORK_DIR }}
           ${{ env.REMOVE_DOCKER }}
