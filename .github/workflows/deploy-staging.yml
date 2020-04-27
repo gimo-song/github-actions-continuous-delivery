@@ -10,7 +10,7 @@ env:
   PATH_SET: export PATH=${{ secrets.PYPATH }}
   KILL_GUNICORN: pkill -e gunicorn
 
-#      SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
+  #SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
   SET_REF: GITHUB_REF=${{ github.ref }};
 
   GIT_FETCH: git fetch origin
