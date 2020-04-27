@@ -32,6 +32,7 @@ jobs:
         command: |
           ${{ env.SET_REF }}
           ${{ env.WORK_DIR }}
+          ${{ env.PATH_SET }}
           pwd
           python --version
           pip freeze
