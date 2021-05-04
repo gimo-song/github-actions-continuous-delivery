@@ -32,12 +32,6 @@ jobs:
         with:
           args: pip install . ; pylint **/*.py"
 
-  jslint:
-    name: Start js lint in local
-
-  htmllint:
-    name: Start html lint in local
-
   build:
     name: staging update
     runs-on: ubuntu-16.04
