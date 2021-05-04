@@ -2,7 +2,7 @@ name: StagingUpdate
 on:
   push:
     branches:
-      - 'SERVICE-sgm*'
+      - 'staging*'
 env:
   WORK_DIR: cd /root/sites/wishket.com/source
   REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
