@@ -18,12 +18,26 @@ env:
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
   DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set:t,t
 
+  START_PYLINT: /root/.pyenv/versions/source/bin/pip install pylint
+
+  PYLINT_START: pylint **/*.py
+
 jobs:
-  pylint:
-    name: Start lint in local
-    runs-on: ubuntu-latest
+  build:
+    name: staging update
+    runs-on: ubuntu-16.04
+
     steps:
-      - name: Start pylint
-        uses: cclauss/GitHub-Action-for-pylint@0.7.0
-        with:
-          args: pip install . ; pylint **/*.py"
+    - name: Start staging update
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          ${{ env.SET_REF }}
+
+          ${{ env.WORK_DIR }}
+          ${{ env.START_PYLINT }}
+          ${{ env.PYLINT_START }}
+
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GITHUB_ACTION_KEY }}
