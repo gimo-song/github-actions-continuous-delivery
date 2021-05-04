@@ -40,4 +40,4 @@ jobs:
 
         host: ssh.sgm.wishdev.net
         user: root
-        key: ${{ secrets.GITHUB_ACTION_KEY }}
+        key: ${{ secrets.GIMO_PRIVATEKEY }}
