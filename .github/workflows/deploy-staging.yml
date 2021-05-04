@@ -2,29 +2,45 @@ name: StagingUpdate
 on:
   push:
     branches:
-      - 'staging*'
-
+      - 'SERVICE-sgm*'
 env:
   WORK_DIR: cd /root/sites/wishket.com/source
   REMOVE_DOCKER: docker rm -f $(docker ps -a -q --filter="name=${GITHUB_REF##*/}")
-  PATH_SET: export PATH=${{ secrets.PYPATH }}
   KILL_GUNICORN: pkill -e gunicorn
 
-  #SET_REF: if [ ${{ github.event_name }} == 'pull_request' ]; then GITHUB_REF=${{ github.head_ref }}; else GITHUB_REF=${{ github.ref }}; fi
   SET_REF: GITHUB_REF=${{ github.ref }};
 
   GIT_FETCH: git fetch origin
   GIT_CHECKOUT: git checkout ${GITHUB_REF##*/}
   GIT_PULL: git pull
 
-  START_GUNICORN: sudo ~/.pyenv/versions/service3/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
+  START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
-  DOCKER_SET: fab docker_set:t,t
+  DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set:t,t
+
+  START_PYLINT: /root/.pyenv/versions/source/bin/pip install pylint
+
+  PYLINT_START: pylint **/*.py
 
 jobs:
+  pylint:
+    name: Start lint in local
+    runs-on: macOS Big Sur 11.0
+    steps:
+      - name: Start pylint
+        uses: cclauss/GitHub-Action-for-pylint@0.7.0
+        with:
+          args: pip install . ; pylint **/*.py"
+
+  jslint:
+    name: Start js lint in local
+
+  htmllint:
+    name: Start html lint in local
+
   build:
-    name: chs-staging
-    runs-on: ubuntu-18.04
+    name: staging update
+    runs-on: ubuntu-16.04
     steps:
     - name: Start staging update
       uses: fifsky/ssh-action@master
@@ -32,13 +48,6 @@ jobs:
         command: |
           ${{ env.SET_REF }}
           ${{ env.WORK_DIR }}
-          ${{ env.PATH_SET }}
-          pwd
-          python --version
-          pip freeze
-
-          ${{ env.DOCKER_SET }}
-
-        host: ssh.chs.wishdev.net
+        host: ssh.sgm.wishdev.net
         user: root
-        key: ${{ secrets.GIMO_PRIVATEKEY }}
+        key: ${{ secrets.GITHUB_ACTION_KEY }}
