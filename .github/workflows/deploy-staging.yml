@@ -21,24 +21,9 @@ env:
 jobs:
   pylint:
     name: Start lint in local
-    runs-on: macOS Big Sur 11.0
+    runs-on: macos-latest
     steps:
       - name: Start pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
         with:
           args: pip install . ; pylint **/*.py"
-
-
-  build:
-    name: staging update
-    runs-on: ubuntu-16.04
-    steps:
-    - name: Start staging update
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
-          ${{ env.SET_REF }}
-          ${{ env.WORK_DIR }}
-        host: ssh.sgm.wishdev.net
-        user: root
-        key: ${{ secrets.GITHUB_ACTION_KEY }}
