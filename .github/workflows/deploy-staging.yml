@@ -21,7 +21,7 @@ env:
 jobs:
   pylint:
     name: Start lint in local
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Start pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
