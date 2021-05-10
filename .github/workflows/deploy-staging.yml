@@ -20,24 +20,35 @@ env:
 
   START_PYLINT: /root/.pyenv/versions/source/bin/pip install pylint
 
-  PYLINT_START: pylint **/*.py
+  PYLINT_START: pylint **/*.py > pylint_message.txt
+  START_PYLINT_SCRIPTS: python pylint_script.py
+
 
 jobs:
   build:
     name: staging update
-    runs-on: ubuntu-16.04
-
+    runs-on: ubuntu-latest
     steps:
     - name: Start staging update
       uses: fifsky/ssh-action@master
       with:
         command: |
           ${{ env.SET_REF }}
-
           ${{ env.WORK_DIR }}
           ${{ env.START_PYLINT }}
           ${{ env.PYLINT_START }}
+          ${{ env.START_PYLINT_SCRIPTS }}
 
         host: ssh.sgm.wishdev.net
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
+      inputs:
+        host: ssh.sgm.wishdev.net
+        user: root
+        key: ${{ secrets.GITHUB_ACTION_KEY }}
+        timeout:
+          default: "30s"
+        command_timeout:
+          default: "30s"
+        proxy_timeout:
+          default: "30s"
