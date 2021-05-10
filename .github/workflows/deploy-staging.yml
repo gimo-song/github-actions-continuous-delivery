@@ -16,7 +16,7 @@ env:
 
   START_GUNICORN: sudo ~/.pyenv/versions/service/bin/gunicorn -c gunicorn.py wishket.wsgi:application &> /dev/null &
   COPY_STATIC_FOLDER: cp -r /root/sites/wishket.com/source/wishket/static/ /root/sites/wishket.com/
-  DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set:t,t
+  DOCKER_SET: /root/.pyenv/versions/service/bin/fab docker_set:gimo@wishket.com,01037144745,t,t
 
   START_PYLINT: /root/.pyenv/versions/source/bin/pip install pylint
 
