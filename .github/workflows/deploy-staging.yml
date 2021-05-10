@@ -28,12 +28,6 @@ jobs:
   build:
     name: staging update
     runs-on: ubuntu-latest
-    inputs:
-        default: "30s"
-      command_timeout:
-        default: "30s"
-      proxy_timeout:
-        default: "30s"
     steps:
     - name: Start staging update
       uses: fifsky/ssh-action@master
