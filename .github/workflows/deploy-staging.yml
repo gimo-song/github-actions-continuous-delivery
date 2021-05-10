@@ -42,13 +42,9 @@ jobs:
         host: ssh.sgm.wishdev.net
         user: root
         key: ${{ secrets.GIMO_PRIVATEKEY }}
-      inputs:
-        host: ssh.sgm.wishdev.net
-        user: root
-        key: ${{ secrets.GITHUB_ACTION_KEY }}
-        timeout:
-          default: "30s"
-        command_timeout:
-          default: "30s"
-        proxy_timeout:
-          default: "30s"
+      timeout:
+        default: "30s"
+      command_timeout:
+        default: "30s"
+      proxy_timeout:
+        default: "30s"
